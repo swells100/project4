@@ -36,7 +36,7 @@ int main() {
       printf("Received a request from %s to send the message '%s' to %s.\n", req.source, req.msg, req.target);
 
       char targetFIFO[64];
-      snprintf(targetFIFO, sizeof(targetFIFO), "/tmp/%s_fifo", req.target);
+      snprintf(targetFIFO, sizeof(targetFIFO), "./%s", req.target);
       
       target = open(targetFIFO, O_WRONLY);
       if (target < 0) {

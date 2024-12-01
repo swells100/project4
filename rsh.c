@@ -36,7 +36,7 @@ void sendmsg (char *user, char *target, char *msg) {
   strcpy(msgStruct.target, target);
   strcpy(msgStruct.msg, msg);
 
-  int fd = open("/tmp/server_fifo", O_WRONLY);
+  int fd = open("./serverFIFO", O_WRONLY);
   if (fd < 0) {
     perror("Error opening server FIFO");
     return;
@@ -59,7 +59,7 @@ void* messageListener(void *arg) {
 	// Incoming message from [source]: [message]
 	// put an end of line at the end of the message
   char fifoPath[64];
-  sprintf(fifoPath, "/tmp/%s_fifo", uName);
+  sprintf(fifoPath, "./%s", uName);
   
   int fd = open(fifoPath, O_RDONLY);
   if (fd < 0) {
@@ -71,7 +71,7 @@ void* messageListener(void *arg) {
 
   while (1) {
     if (read(fd, &incomingMsg, sizeof(incomingMsg)) > 0) {
-      printf("Incoming message from [%s]: %s\n", incomingMsg.source, incomingMsg.msg);
+      printf("Incoming message from %s: %s\n", incomingMsg.source, incomingMsg.msg);
       fflush(stdout);
     }
   }
