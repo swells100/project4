@@ -33,7 +33,7 @@ int main() {
 		// read requests from serverFIFO
 
   if (read(server, &req, sizeof(req)) > 0) {
-      printf("Received a request from %s to send the message '%s' to %s.\n", req.source, req.msg, req.target);
+      printf("Received a request from %s to send the message %s to %s.\n", req.source, req.msg, req.target);
 
       char targetFIFO[64];
       snprintf(targetFIFO, sizeof(targetFIFO), "./%s", req.target);
